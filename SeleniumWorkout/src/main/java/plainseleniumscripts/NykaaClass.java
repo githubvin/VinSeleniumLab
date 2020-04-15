@@ -12,7 +12,7 @@ public class NykaaClass {
 
 	public static void main(String[] args) { 
 		
-		// Launching the application --
+		// Launching the application 
 		System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver.exe"); 
 		ChromeOptions options = new ChromeOptions(); 
 		options.addArguments("--disable-notifications"); 
