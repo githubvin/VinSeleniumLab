@@ -30,7 +30,7 @@ public class MakemytripClass {
 		// Creating object for the other method 
 		MakemytripClass hand = new MakemytripClass(); 
 		
-		// Launching the Nykaa application
+		// Launching the MakemyTrip application
 		System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver.exe");
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--disable-notifications");
