@@ -77,7 +77,7 @@ public class HPStoreClass {
 		
 		System.out.println("First Product Price: " + priceNumber); 
 		Thread.sleep(3000);
-		js.executeScript("window.scrollBy(0, 700)");
+		js.executeScript("window.scrollBy(0, 750)");
 		driver.findElementByXPath("(//button[contains(@title,'Add To Cart')])[1]").click(); 
 		Thread.sleep(5000); 
 		
@@ -87,6 +87,7 @@ public class HPStoreClass {
 		Thread.sleep(3000); 
 		
 		driver.findElementByName("pincode").sendKeys("625001"); 
+		Thread.sleep(3000); 
 		driver.findElementByXPath("//button[text()='check']").click(); 
 		
 		// Converting the Order Total to Integer and comparing with the previously taken price 
