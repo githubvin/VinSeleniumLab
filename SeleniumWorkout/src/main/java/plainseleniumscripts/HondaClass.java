@@ -91,7 +91,7 @@ public class HondaClass {
 		System.out.println("Displacement value for Scooter Activa 125: " + activaDispValue); 
 		
 		if (dioDispValue < activaDispValue) {
-			System.out.println("Scooter Activa125 has betteer Displacement value."); 
+			System.out.println("Scooter Activa125 has better Displacement value."); 
 		} else if (dioDispValue == activaDispValue) { 
 			System.out.println("Both Scooters have same Displacement value.");
 		} else { 
