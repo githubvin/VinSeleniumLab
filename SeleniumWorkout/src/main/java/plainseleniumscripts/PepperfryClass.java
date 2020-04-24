@@ -94,7 +94,8 @@ public class PepperfryClass {
 		Thread.sleep(3000); 
 		
 		// Adding the Pressure Cooker alone to the Cart 
-		WebDriverWait wait = new WebDriverWait(driver, 10); 
+		driver.findElementByXPath("//a[@data-tooltip='Compact view']").click();
+		WebDriverWait wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.elementToBeClickable(driver.findElementByXPath("//a[text()='Nakshatra Cute Metallic Red Aluminium Cooker 2 Ltr By...']/following::a[@class='addtocart_icon']"))); 
 		driver.findElementByXPath("//a[text()='Nakshatra Cute Metallic Red Aluminium Cooker 2 Ltr By...']/following::a[@class='addtocart_icon']").click(); 
 		Thread.sleep(2000); 
