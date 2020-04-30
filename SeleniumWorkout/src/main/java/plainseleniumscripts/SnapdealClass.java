@@ -42,7 +42,7 @@ public class SnapdealClass {
 		cap.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.DISMISS);
 		options.merge(cap);
 
-		driver = new ChromeDriver();
+		driver = new ChromeDriver(options);
 		driver.get("https://www.snapdeal.com/");
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS); 
