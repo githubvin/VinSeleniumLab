@@ -108,7 +108,8 @@ public class ShikshaClass {
 		System.out.println("\nLess fees list: " + feesList);
 		
 		// Fetching the least fee and selecting that college 
-		Double leastFee = feesList.get(0);
+		Double leastFee = feesList.get(0); 
+		System.out.println("Least fees fetched: " + leastFee);
 		
 		// Adding the college to compare list 
 		js.executeScript("window.scrollBy(0,200)");
