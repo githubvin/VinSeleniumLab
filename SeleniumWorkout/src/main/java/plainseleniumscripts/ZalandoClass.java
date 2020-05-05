@@ -90,7 +90,7 @@ public class ZalandoClass {
 		Thread.sleep(3000); 
 		
 		// Verifying the available size 
-		driver.findElementByXPath("//span[text()='Choose your size']").click(); 
+		driver.findElementById("picker-trigger").click(); 
 		driver.findElementByXPath("//span[text()='M']").click(); 
 		
 		// Selecting Olive colour 
@@ -99,15 +99,21 @@ public class ZalandoClass {
 		
 		if (driver.findElementByXPath("//h2[text()='Out of stock']").isDisplayed()) { 
 			driver.findElementByXPath("(//img[@alt='navy'])[2]").click(); 
-		} else if (driver.findElementByXPath("//span[text()='Choose your size']").isDisplayed()) { 
+		} else if (driver.findElementById("picker-trigger").isDisplayed()) { 
 			System.out.println("Olive is available."); 
 		} else { 
 			System.out.println("Both Navy and Olive are out of stock."); 
 			driver.quit(); 
 		} 
 		
-		driver.findElementByXPath("//span[text()='Choose your size']").click(); 
-		driver.findElementByXPath("//span[text()='M']").click(); 
+		driver.findElementById("picker-trigger").click(); 
+		
+		if (driver.findElementByXPath("//span[text()='M']").isDisplayed()) {
+			driver.findElementByXPath("//span[text()='M']").click(); 
+		} else { 
+			System.out.println("Size M is not available.");
+		}
+		 
 		
 		if (driver.findElementByXPath("(//span[text()='Standard delivery']/parent::div//button[@aria-label='Free'])[1]").isDisplayed()) {
 			driver.findElementByXPath("//span[text()='Add to bag']").click(); 
@@ -132,7 +138,9 @@ public class ZalandoClass {
 		Thread.sleep(3000); 
 		
 		// Going for Chat 
-		driver.findElementByXPath("//span[text()='Start chat']/parent::button").click(); 
+		wait.until(ExpectedConditions.elementToBeClickable(driver.findElementByXPath("//span[text()='Start chat']/parent::button")));
+		driver.findElementByXPath("//span[text()='Start chat']/parent::button").click();  
+		System.out.println("Chat clicked.");
 		Thread.sleep(5000); 
 		
 		// Switching to new chat window 
