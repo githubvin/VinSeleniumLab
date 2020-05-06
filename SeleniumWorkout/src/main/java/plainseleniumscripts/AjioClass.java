@@ -156,13 +156,20 @@ public class AjioClass {
 		
 		// Verifying the savings in the checkout page 
 		String savingsAmountStr = driver.findElementByXPath("//span[@class='cart-total-saving-text']").getText();
-		double savingsDouble = Double.parseDouble(savingsAmountStr.replaceAll("\\D", "")); 
+		savingsAmountStr = savingsAmountStr.replaceAll("[^0-9.]", ""); 
+		
+		String[] amountSplit = savingsAmountStr.split(".", 2); 
+		
+		double savingsDouble = Double.parseDouble(amountSplit[1]); 
+		
+		// Rounding off the Savings Double and converting to int 
+		int roundOffSavings = (int)Math.round(savingsDouble); 
+		System.out.println(roundOffSavings);
+		
 		System.out.println("Savings from the checkout page: " + savingsDouble);
-		
-		// Converting the previous int to double 
-		double savingsAmountDouble = (double)savings; 
-		
-		if (savingsAmountDouble == savingsDouble) { 
+		 
+		// Comparing the two Integer savings 
+		if (roundOffSavings == savings) { 
 			System.out.println("Savings Amount matches.");
 		} else { 
 			System.out.println("Incorrect Savings."); 
