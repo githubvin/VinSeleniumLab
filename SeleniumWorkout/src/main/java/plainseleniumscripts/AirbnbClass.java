@@ -1,7 +1,13 @@
 package plainseleniumscripts;
 
+import static org.testng.Assert.expectThrows;
+
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -28,7 +34,7 @@ public class AirbnbClass {
 		return winList.get(size-1); 
 	}
 
-	public static void main(String[] args) throws InterruptedException { 
+	public static void main(String[] args) throws Exception { 
 		
 		AirbnbClass obj = new AirbnbClass(); 
 
@@ -51,6 +57,8 @@ public class AirbnbClass {
 		WebDriverWait wait = new WebDriverWait(driver, 10); 
 		
 		// Trying to close the cookies popup from the website 
+		wait.until(ExpectedConditions.elementToBeClickable(driver.findElementByXPath("//button[@title='OK']"))); 
+		Thread.sleep(500);
 		try {
 			driver.findElementByXPath("//button[@title='OK']").click();
 		} catch (Exception e) { 
@@ -61,6 +69,7 @@ public class AirbnbClass {
 		// Entering the location and searching further 
 		driver.findElementById("bigsearch-query-attached-query").sendKeys("Coorg"); 
 		wait.until(ExpectedConditions.visibilityOf(driver.findElementById("Koan-query__listbox"))); 
+		Thread.sleep(500);
 		
 		act.click(driver.findElementByXPath("//div[text()='Coorg, Karnataka']")).build().perform(); 
 		
@@ -75,7 +84,7 @@ public class AirbnbClass {
 		// Adding adults using For loop   
 		for (int i = 0; i < 6; i++) {
 			driver.findElementByXPath("//div[@id='stepper-adults']//button[@aria-label='increase value']").click();
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 		}
 		
 		
@@ -90,7 +99,7 @@ public class AirbnbClass {
 		// Adding Children using For loop 
 		for (int j = 0; j < 3; j++) {
 			driver.findElementByXPath("//div[@id='stepper-children']//button[@aria-label='increase value']").click();
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 		}
 		
 		
@@ -109,11 +118,12 @@ public class AirbnbClass {
 		driver.findElementByXPath("//div[@id='menuItemButton-flexible_cancellation']//button").click(); 
 		driver.findElementById("filterItem-switch-flexible_cancellation-true").click(); 
 		driver.findElementById("filter-panel-save-button").click(); 
-		Thread.sleep(5000); 
+		Thread.sleep(6000); 
 		
 		driver.findElementByXPath("//div[@id='menuItemButton-room_type']//button").click(); 
 		Thread.sleep(2000);
 		driver.findElementByXPath("//div[text()='Entire place']").click(); 
+		Thread.sleep(2000);
 		driver.findElementById("filter-panel-save-button").click(); 
 		Thread.sleep(5000); 
 		
@@ -134,7 +144,7 @@ public class AirbnbClass {
 		// Adding number of Bedrooms 
 		for (int k = 0; k < 3; k++) {
 			driver.findElementByXPath("//div[@id='filterItem-stepper-min_bedrooms-0']//button[@aria-label='increase value']").click(); 
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 		}
 		
 		/*
@@ -148,7 +158,7 @@ public class AirbnbClass {
 		// Adding Bathrooms 
 		for (int r = 0; r < 3; r++) {
 			driver.findElementByXPath("//div[@id='filterItem-stepper-min_bathrooms-0']//button[@aria-label='increase value']").click(); 
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 		}
 		
 		/*
@@ -182,11 +192,13 @@ public class AirbnbClass {
 		// Selecting Prahari Nivas 
 		driver.findElementByXPath("(//a[@aria-label='Prahari Nivas, the complete house'])[1]").click(); 
 		
-		Thread.sleep(4000);
+		Thread.sleep(3000);
 		// Switching to new window 
 		driver.switchTo().window(obj.pickWindow()); 
 		Thread.sleep(5000);
 		
+		wait.until(ExpectedConditions.elementToBeClickable(driver.findElementByXPath("(//*[contains(text(),'amenities')])[1]")));
+		Thread.sleep(1000);
 		driver.findElementByXPath("(//*[contains(text(),'amenities')])[1]").click(); 
 		Thread.sleep(3000);
 		
@@ -198,13 +210,13 @@ public class AirbnbClass {
 			System.out.println(eachUnavailable.getText());
 		}
 		
-		Thread.sleep(2000);
-		
+		Thread.sleep(3000);
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		try {
-			driver.findElementByXPath("(//button[@aria-label='Close'])[2]").click();
+			driver.findElementByXPath("//button[@aria-label='Close' and @type='button']").click();
 		} catch (Exception e) {
-			driver.findElementByXPath("//button[@aria-label='Close']").click();
-			e.printStackTrace();
+			driver.findElementByXPath("(//button[@aria-label='Close'])[2]").click();
+			throw e;  
 		} 
 		
 		// Verifying the Checkin and Checkout Dates 
@@ -240,37 +252,45 @@ public class AirbnbClass {
 		
 		// Printing the Sleeping arrangements 
 		
-		  List<WebElement> sleepingList = driver.
-		  findElementsByXPath("//div[text()='Sleeping arrangements']/ancestor::section[1]//div[@aria-hidden='true']"
-		  );
-		  
-		  System.out.println("\nSleeping arrangements: ");
-		  
-		for (int s = 0; s < sleepingList.size(); s++) {
-			String sleepingDetails1 = driver.findElementByXPath(
-					"(//div[text()='Sleeping arrangements']/ancestor::section[1]//div[@aria-hidden='true'])[" + s
-							+ "]/following::div[1]")
-					.getText();
-			String sleepingDetails2 = driver.findElementByXPath(
-					"(//div[text()='Sleeping arrangements']/ancestor::section[1]//div[@aria-hidden='true'])[" + s
-							+ "]/following::div[2]")
-					.getText();
-			System.out.println(sleepingDetails1 + " - " + sleepingDetails2);
-		}
-		 
-		
 		/*
-		 * List<WebElement> sleepList =
-		 * driver.findElementsByXPath("//div[contains(text(),'Bed')]");
+		 * List<WebElement> sleepingList = driver.
+		 * findElementsByXPath("//div[text()='Sleeping arrangements']/ancestor::section[1]//div[@aria-hidden='true']"
+		 * );
 		 * 
-		 * System.out.println("Sleeping arrangements:"); for (int s = 0; s <
-		 * sleepList.size(); s++) { String sleepInfo1 =
-		 * driver.findElementByXPath("(//div[contains(text(),'Bed')])[" + s +
-		 * "]").getText(); String sleepInfo2 = driver
-		 * .findElementByXPath("(//div[contains(text(),'Bed')])[" + s +
-		 * "]/following::div[1]").getText(); System.out.println(sleepInfo1 + " - " +
-		 * sleepInfo2); }
+		 * System.out.println("\nSleeping arrangements: ");
+		 * 
+		 * for (int s = 0; s < sleepingList.size(); s++) { String sleepingDetails1 =
+		 * driver.findElementByXPath(
+		 * "(//div[text()='Sleeping arrangements']/ancestor::section[1]//div[@aria-hidden='true'])["
+		 * +s+"]/following::div[1]").getText(); String sleepingDetails2 =
+		 * driver.findElementByXPath(
+		 * "(//div[text()='Sleeping arrangements']/ancestor::section[1]//div[@aria-hidden='true'])["
+		 * +s+"]/following::div[2]").getText();
+		 * 
+		 * sleepMap.put(sleepingDetails1, sleepingDetails2); }
 		 */
+		 
+		Map<String, String> sleepMap = new LinkedHashMap<String, String>(); 
+		
+		List<WebElement> bedroomList = driver.findElementsByXPath("//div[contains(text(),'Bed')]"); 
+		List<WebElement> bedArrangementList = driver.findElementsByXPath("//div[contains(text(),'Bed')]/following-sibling::div"); 
+		
+		for (int b = 0; b < bedroomList.size(); b++) { 
+			String sleepingInfo1 = bedroomList.get(b).getText(); 
+			String sleepingInfo2 = bedArrangementList.get(b).getText(); 
+			driver.findElementByXPath("//div[contains(text(),'Bed')]/ancestor::div//div[@class='_1mlprnc']").click(); 
+			driver.findElementByXPath("(//div[contains(text(),'Bed')]/ancestor::div//div[@class='_1mlprnc'])[2]").click(); 
+			sleepingInfo1 = bedroomList.get(b).getText(); 
+			sleepingInfo2 = bedArrangementList.get(b).getText(); 
+			sleepMap.put(sleepingInfo1, sleepingInfo2); 
+		}
+		
+		
+		System.out.println("\nSleeping arrangements: ");
+		
+		for (Map.Entry<String, String> eachMap : sleepMap.entrySet()) {
+			System.out.println(eachMap.getKey() + " - " + eachMap.getValue());
+		}
 		
 		
 		driver.quit();
