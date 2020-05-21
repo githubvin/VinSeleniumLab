@@ -119,7 +119,7 @@ public class JustDialClass {
 		
 		
 		// Adding the Center Names and corresponding Phone numbers in the final Map 
-		serviceCenterDetails.put(centerName, phoneList); 
+		serviceCenterDetails.put(centerName, appendPhone); 
 		
 
 		// Writing the Map in the excel 
